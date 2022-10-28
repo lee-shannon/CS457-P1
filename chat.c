@@ -1,5 +1,6 @@
 /*******************************************
 * Group Name  : Shannon
+
 * Member1 Name: Shannon
 * Member1 SIS ID: 832015157
 * Member1 Login ID: shan1020
@@ -8,7 +9,6 @@
 * Member2 SIS ID: 831066972
 * Member2 Login ID: reecedw
 ********************************************/
-
 #define _GNU_SOURCE
 
 #include <stdlib.h>
@@ -185,7 +185,7 @@ int main(int argc, char* argv[]){
 			if (rec == 0) {
 				break;
 			}
-			printf("Friend: %s\n", incoming_message);
+			printf("Friend: %s", incoming_message);
 			printf("You: ");
 			fgets(outgoing_message, 200, stdin);
 			while (strlen(outgoing_message) > 141) {
@@ -202,8 +202,9 @@ int main(int argc, char* argv[]){
 	}
 
 	if (client_flag == 1) {
-		char outgoing_message[200] = "";
-		char incoming_message[200] = "";
+
+		char outgoing_message[200];
+		char incoming_message[200];
 
 		int client_socket = socket(AF_INET, SOCK_STREAM, 0);
 		checkSocketStatus(client_socket);
@@ -221,6 +222,7 @@ int main(int argc, char* argv[]){
 		printf("Connected!\n");
 		printf("Connected to a friend! You send first.\n");
 
+
 		while(1){
 			printf("You: ");
 			fgets(outgoing_message, 200, stdin);
@@ -230,20 +232,19 @@ int main(int argc, char* argv[]){
 				printf("\nYou: ");
 				fgets(outgoing_message, 200, stdin);
 			}
+			
 			send(client_socket, outgoing_message, sizeof(outgoing_message), 0);
+			
 			size_t rec = recv(client_socket, incoming_message, sizeof(incoming_message), 0);
+			
 			if (rec == 0) {
 				break;
 			}
 			
-			printf("Friend: %s\n", incoming_message);
+			printf("Friend: %s", incoming_message);
 		}
 
-		close(client_socket);
-
-
-
-		
+		close(client_socket);		
 	}
 
 	return 0;
